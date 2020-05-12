@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import DisplayEmployee from './components/DisplayEmployee';
 import './App.css';
 
@@ -18,16 +20,38 @@ const sampleEmployee = {
   },
   email: 'charlie.thompson@example.com',
   picture: {
-    medium: 'https://randomuser.me/api/portraits/med/men/40.jpg',
+    medium: 'https://randomuser.me/api/portraits/med/men/2.jpg',
   },
 };
 
-function App() {
-  return (
-    <div className="App">
-      <DisplayEmployee employee={sampleEmployee} />
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      employee: sampleEmployee
+    };
+
+    this.getEmployee = this.getEmployee.bind(this);
+  }
+
+  getEmployee() {
+    axios.get('https://randomuser.me/api?nat=fr')
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          employee: data.results[0],
+        })
+      })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <DisplayEmployee employee={this.state.employee} />
+        <button type='button' onClick={this.getEmployee}>Get employee</button>
+      </div>
+    );
+  }
 }
 
 export default App;
