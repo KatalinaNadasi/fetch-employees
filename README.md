@@ -1,3 +1,7 @@
+Fetch an employee
+
+Pedagogic tool with show different steps from static datas to a promise with Axios
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
